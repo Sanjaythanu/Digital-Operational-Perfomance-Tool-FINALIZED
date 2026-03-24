@@ -24,7 +24,9 @@ const Register = () => {
             await register(name, email, password, isAdminRegistration ? adminSecret : '');
             navigate('/dashboard');
         } catch (err) {
-            const msg = err.response?.data?.message || 'REGISTRATION FAILED: Invalid parameters';
+            console.error('Registration error:', err);
+            const msg = err.response?.data?.message || 
+                        (err.request ? 'CONNECTION FAILED: Backend unreachable' : 'REGISTRATION FAILED: Invalid parameters');
             setError(msg);
             setIsLoading(false);
         }

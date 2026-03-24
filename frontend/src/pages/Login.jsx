@@ -20,7 +20,9 @@ const Login = () => {
             await login(email, password);
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.message || 'ACCESS DENIED: Invalid credentials');
+            console.error('Login error:', err);
+            setError(err.response?.data?.message || 
+                   (err.request ? 'CONNECTION FAILED: Backend unreachable' : 'ACCESS DENIED: Invalid credentials'));
             setIsLoading(false);
         }
     };
