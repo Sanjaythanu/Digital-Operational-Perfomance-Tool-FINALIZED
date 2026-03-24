@@ -31,8 +31,8 @@ router.post('/register', async (req, res) => {
         let nextId = '';
         const prefix = role === 'admin' ? 'AD' : 'U';
 
-        // Find last user WITH THE SAME ROLE to increment correctly
-        const lastUser = await User.findOne({ role }).sort({ createdAt: -1 });
+        // Find last user WITH THE SAME PREFIX to increment correctly
+        const lastUser = await User.findOne({ userno: new RegExp(`^${prefix}-`) }).sort({ userno: -1 });
 
         if (lastUser && lastUser.userno && lastUser.userno.startsWith(prefix)) {
             const lastIdNum = parseInt(lastUser.userno.split('-')[1]);

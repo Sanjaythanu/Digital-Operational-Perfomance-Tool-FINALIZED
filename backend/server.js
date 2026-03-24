@@ -23,6 +23,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/operations', operationRoutes);
 app.use('/api/analytics', analyticsRoutes);
 
+// Fix for DNS resolution issues with MongoDB SRV on certain ISPs
+require('dns').setServers(['8.8.8.8', '8.8.4.4']);
+
 // Database Connection
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/dopt';

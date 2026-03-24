@@ -32,7 +32,7 @@ const Operations = () => {
     if (user?.role === 'admin') {
       try {
         const { data } = await api.get('/users');
-        setUserList(data);
+        setUserList(data.filter(u => u.role !== 'admin'));
       } catch (error) {
         console.error("Error fetching users for dropdown", error);
       }
