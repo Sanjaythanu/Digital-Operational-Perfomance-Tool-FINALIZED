@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-background: 11 15 25;
+    --color-card: 17 24 39;
+    --color-primary: 99 102 241;
+    --color-success: 34 197 94;
+    --color-warning: 245 158 11;
+    --color-danger: 239 68 68;
+    --color-text-primary: 229 231 235;
+    --color-text-secondary: 156 163 175;
+  }
+
+  .light-mode {
+    --color-background: 248 250 252;
+    --color-card: 255 255 255;
+    --color-primary: 79 70 229;
+    --color-success: 22 163 74;
+    --color-warning: 217 119 6;
+    --color-danger: 220 38 38;
+    --color-text-primary: 15 23 42;
+    --color-text-secondary: 100 116 139;
+  }
+
+  body {
+    @apply bg-background text-text-primary antialiased min-h-screen overflow-hidden transition-colors duration-300;
+    font-family: 'Inter', 'Roboto', 'Outfit', system-ui, sans-serif;
+  }
+  
+  #root {
+    @apply h-screen flex flex-col;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-card rounded-md border border-[#334155];
+  }
+  .light-mode ::-webkit-scrollbar-thumb {
+    @apply border-[#cbd5e1];
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/50;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-card/80 backdrop-blur-md border border-[#334155]/50 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)];
+  }
+  .light-mode .glass-panel {
+    @apply border-[#cbd5e1]/50 shadow-[0_8px_32px_0_rgba(0,0,0,0.05)];
+  }
+  .glow-text {
+    @apply drop-shadow-[0_0_8px_rgba(99,102,241,0.5)];
+  }
+}
