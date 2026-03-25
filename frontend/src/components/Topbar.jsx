@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { ThemeContext } from '../context/ThemeContext';
-import { Bell, Moon, Sun, User, Settings, LogOut, ChevronDown } from 'lucide-react';
+import { Bell, Moon, Sun, User, Settings, LogOut, ChevronDown, Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Topbar = () => {
+const Topbar = ({ onMenuClick }) => {
     const { user, logout } = useContext(AuthContext);
     const { isDark, toggleTheme } = useContext(ThemeContext);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -22,20 +22,31 @@ const Topbar = () => {
     }, []);
 
     return (
-        <div className="relative sticky top-0 z-[100] flex h-20 items-center justify-between border-b border-[#334155]/50 bg-background/80 px-8 backdrop-blur-xl">
-            <div className="flex flex-col">
-                <h2 className="text-xl font-bold tracking-tight text-text-primary">
-                    DIGITAL OPERATIONAL PERFORMANCE TOOL
-                </h2>
-                <div className="flex items-center gap-2 text-xs font-medium tracking-widest text-[#94a3b8]">
-                    <span className="flex items-center gap-1">
-                        <span className="h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_8px_#22c55e]"></span>
-                        SYSTEM ONLINE
-                    </span>
-                    <span className="text-primary/50">|</span>
-                    <span className="text-primary/80">
-                        {user?.role === 'admin' ? 'SYSTEM ACCESS LEVEL: OMEGA' : 'STANDARD ACCESS'}
-                    </span>
+        <div className="relative sticky top-0 z-[100] flex h-20 items-center justify-between border-b border-[#334155]/50 bg-background/80 px-4 md:px-8 backdrop-blur-xl">
+            <div className="flex items-center gap-4">
+                <button 
+                    onClick={onMenuClick}
+                    className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary hover:bg-primary/20 lg:hidden focus:outline-none"
+                    title="Menu"
+                >
+                    <Menu className="h-6 w-6" />
+                </button>
+                
+                <div className="flex flex-col">
+                    <h2 className="text-sm md:text-xl font-bold tracking-tight text-text-primary truncate max-w-[150px] md:max-w-none">
+                        DIGITAL OPERATIONAL PERFORMANCE TOOL
+                    </h2>
+                    <div className="flex items-center gap-2 text-[10px] md:text-xs font-medium tracking-widest text-[#94a3b8]">
+                        <span className="flex items-center gap-1">
+                            <span className="h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_8px_#22c55e]"></span>
+                            <span className="hidden xs:inline">SYSTEM ONLINE</span>
+                            <span className="xs:hidden">LIVE</span>
+                        </span>
+                        <span className="text-primary/50">|</span>
+                        <span className="text-primary/80 truncate max-w-[80px] xs:max-w-none">
+                            {user?.role === 'admin' ? 'LEVEL: OMEGA' : 'STANDARD'}
+                        </span>
+                    </div>
                 </div>
             </div>
 

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { motion } from 'framer-motion';
-import { Activity, Server, Users, LogOut, Hexagon } from 'lucide-react';
+import { Activity, Server, Users, LogOut, Hexagon, X } from 'lucide-react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -38,32 +38,47 @@ const SidebarItem = ({ to, icon: Icon, label, onClick }) => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, setIsOpen }) => {
   const { user, logout } = useContext(AuthContext);
+
+  const closeSidebar = () => {
+    if (window.innerWidth <= 1024) {
+      setIsOpen(false);
+    }
+  };
 
   return (
     <motion.div 
       initial={{ x: -260 }}
       animate={{ x: 0 }}
-      className="flex w-[260px] flex-col border-r border-[#334155]/50 bg-card/80 backdrop-blur-xl z-20 shadow-2xl"
+      className="flex flex-col border-r border-[#334155]/50 bg-card/80 backdrop-blur-xl z-[200] shadow-2xl h-screen"
     >
-      <div className="flex items-center gap-3 px-6 py-8">
-        <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-primary/20 text-primary">
-          <Hexagon className="h-6 w-6" />
-          <div className="absolute inset-0 rounded-xl border border-primary/50 glow-text mix-blend-screen"></div>
+      <div className="flex items-center justify-between px-6 py-8">
+        <div className="flex items-center gap-3">
+          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-primary/20 text-primary">
+            <Hexagon className="h-6 w-6" />
+            <div className="absolute inset-0 rounded-xl border border-primary/50 glow-text mix-blend-screen"></div>
+          </div>
+          <div>
+            <h1 className="text-xl font-bold tracking-widest text-text-primary glow-text">DOPT</h1>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-primary/80">Command Center</p>
+          </div>
         </div>
-        <div>
-          <h1 className="text-xl font-bold tracking-widest text-text-primary glow-text">DOPT</h1>
-          <p className="text-[10px] uppercase tracking-[0.2em] text-primary/80">Command Center</p>
-        </div>
+        
+        <button 
+          onClick={closeSidebar}
+          className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 text-text-secondary hover:text-text-primary lg:hidden focus:outline-none"
+        >
+          <X className="h-5 w-5" />
+        </button>
       </div>
-
+ 
       <nav className="flex flex-1 flex-col gap-2 mt-4">
-        <SidebarItem to="/dashboard" icon={Activity} label="TELEMETRY" />
-        <SidebarItem to="/operations" icon={Server} label="OPERATIONS" />
+        <SidebarItem to="/dashboard" icon={Activity} label="TELEMETRY" onClick={closeSidebar} />
+        <SidebarItem to="/operations" icon={Server} label="OPERATIONS" onClick={closeSidebar} />
         
         {user && user.role === 'admin' && (
-          <SidebarItem to="/admin/users" icon={Users} label="ACCESS CONTROL" />
+          <SidebarItem to="/admin/users" icon={Users} label="ACCESS CONTROL" onClick={closeSidebar} />
         )}
       </nav>
 
