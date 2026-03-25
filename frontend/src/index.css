@@ -63,3 +63,146 @@
     @apply drop-shadow-[0_0_8px_rgba(99,102,241,0.5)];
   }
 }
+
+/* Responsive Enhancements */
+
+/* Mobile-First Fixes for Dashboard Layout */
+@media (max-width: 1024px) {
+  .flex.h-screen.w-full.overflow-hidden {
+    flex-direction: column !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  
+  [class*="w-[260px]"] {
+    width: 100% !important;
+    height: auto !important;
+    flex-direction: row !important;
+    border-right-width: 0 !important;
+    border-bottom-width: 1px !important;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  [class*="w-[260px]"] nav {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    gap: 0.25rem !important;
+    margin-top: 0 !important;
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  }
+
+  [class*="w-[260px]"] .py-8 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  [class*="w-[260px]"] .mb-6 {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-left: auto !important;
+  }
+  
+  main {
+    padding: 1rem !important;
+  }
+}
+
+/* Tablet and below optimization */
+@media (max-width: 768px) {
+  .sticky.top-0.z-\[100\] {
+    height: auto !important;
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+
+  .sticky.top-0.z-\[100\] .text-xl {
+    font-size: 1rem !important;
+    text-align: center !important;
+  }
+
+  .sticky.top-0.z-\[100\] .flex-col {
+    align-items: center !important;
+  }
+
+  .sticky.top-0.z-\[100\] .flex.items-center.gap-6 {
+    gap: 1rem !important;
+  }
+
+  h1.text-3xl {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* Small mobile optimization */
+@media (max-width: 480px) {
+  .sticky.top-0.z-\[100\] h2 {
+    font-size: 0.875rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px !important;
+  }
+
+  .grid-cols-1.sm\:grid-cols-2 {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
+
+  .p-6 {
+    padding: 1rem !important;
+  }
+
+  .px-6 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Tables */
+  .overflow-x-auto table {
+    font-size: 0.75rem !important;
+  }
+  
+  .px-6.py-4 {
+    padding: 0.75rem !important;
+  }
+
+  /* Compact Navigation for Mobile */
+  [class*="w-[260px]"] span {
+    display: none !important;
+  }
+  
+  [class*="w-[260px]"] .py-3 {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    margin-left: 0.25rem !important;
+    margin-right: 0.25rem !important;
+  }
+
+  [class*="w-[260px]"] button {
+    width: auto !important;
+    padding: 0.75rem !important;
+    margin-right: 1rem !important;
+  }
+
+  [class*="w-[260px]"] h1 {
+    font-size: 1rem !important;
+  }
+  
+  [class*="w-[260px]"] p {
+    display: none !important;
+  }
+}
+
+/* Large screen integrity */
+@media (min-width: 1280px) {
+  .max-w-7xl {
+    max-width: 1280px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
