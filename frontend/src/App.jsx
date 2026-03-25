@@ -19,9 +19,16 @@ const DashboardLayout = () => {
     React.useEffect(() => {
         if (isSidebarOpen) {
             document.body.classList.add('sidebar-open');
+            document.documentElement.style.setProperty('overflow', 'hidden', 'important');
         } else {
             document.body.classList.remove('sidebar-open');
+            document.documentElement.style.removeProperty('overflow');
         }
+        
+        return () => {
+            document.body.classList.remove('sidebar-open');
+            document.documentElement.style.removeProperty('overflow');
+        };
     }, [isSidebarOpen]);
 
     if (loading) return (

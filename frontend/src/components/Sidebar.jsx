@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { motion } from 'framer-motion';
@@ -40,18 +40,37 @@ const SidebarItem = ({ to, icon: Icon, label, onClick }) => {
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const { user, logout } = useContext(AuthContext);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 1024 : false);
 
-  const closeSidebar = () => {
-    if (window.innerWidth <= 1024) {
-      setIsOpen(false);
-    }
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 1024;
+      setIsMobile(mobile);
+      if (!mobile && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    
+    // Initial check
+    handleResize();
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isOpen, setIsOpen]);
+
+  const closeSidebar = () => setIsOpen(false);
 
   return (
     <motion.div 
-      initial={{ x: -260 }}
-      animate={{ x: 0 }}
-      className="flex flex-col border-r border-[#334155]/50 bg-card/80 backdrop-blur-xl z-[200] shadow-2xl h-screen"
+      initial={false}
+      animate={{ 
+        x: (isOpen || !isMobile) ? 0 : '-100%' 
+      }}
+      transition={{ type: "spring", stiffness: 400, damping: 40 }}
+      className={twMerge(
+        "flex flex-col border-r border-[#334155]/50 bg-card/80 backdrop-blur-xl z-[200] shadow-2xl h-screen w-[260px]",
+        isMobile ? "mobile-sidebar" : "relative"
+      )}
     >
       <div className="flex items-center justify-between px-6 py-8">
         <div className="flex items-center gap-3">
