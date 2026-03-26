@@ -56,7 +56,7 @@ const DashboardLayout = () => {
                 <div className="absolute top-0 left-1/4 h-96 w-96 rounded-full bg-primary/5 blur-[120px] pointer-events-none"></div>
                 
                 <Topbar onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
-                <main className="flex-1 overflow-y-auto p-6 z-10 custom-scrollbar">
+                <main className="flex-1 overflow-y-auto p-6 custom-scrollbar">
                     <div className="mx-auto max-w-7xl">
                         <Outlet />
                     </div>
